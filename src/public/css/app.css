@@ -1,0 +1,17 @@
+.header {
+    background-color: #ffffff;
+    padding: 10px 0;
+
+}
+
+.header-logo {
+    color: #FAE380;
+    font-size: 2em;
+    font-family: "Courgette", cursive;
+    margin-left: 5%;
+    margin-bottom: 0;
+}
+
+.main {
+    background-color: #f0f0f0;
+}
