@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\Season;
+use App\Http\Requests\RegisterProductRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -19,29 +19,27 @@ class ProductController extends Controller
     public function create()
     {
         $seasons = Season::all();
-        return view('products.create', compact('seasons'));
+        return view('products.register', compact('seasons'));
     }
 
-    public function store(Request $request)
+    public function store(RegisterProductRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
-            'image' => 'required|image',
-            'description' => 'required',
-        ]);
+        $validated = $request->validated();
 
+        // 画像を保存する
         $path = $request->file('image')->store('public/images');
-        $product = new Product();
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->image = str_replace('public/', 'storage/', $path);
-        $product->description = $request->description;
-        $product->save();
+        $imagePath = str_replace('public/', 'storage/', $path);
+
+        $product = Product::create([
+            'name' => $validated['name'],
+            'price' => $validated['price'],
+            'image' => $imagePath,
+            'description' => $validated['description'],
+        ]);
 
         $product->seasons()->sync($request->seasons);
 
-        return redirect()->route('products');
+        return redirect()->route('products.index')->with('success', '商品を登録しました');
     }
 
     public function show($productId)

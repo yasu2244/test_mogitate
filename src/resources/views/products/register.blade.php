@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/create.css') }}">
+<link rel="stylesheet" href="{{ asset('css/register.css') }}">
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@
                     商品名 
                     <span class="required-field">必須</span>
                 </label>
-                <input type="text" name="name" class="form-control" id="name" placeholder="商品名を入力" value="{{ old('name') }}" required>
+                <input type="text" name="name" class="form-control" id="name" placeholder="商品名を入力" value="{{ old('name') }}">
                 @error('name')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -28,7 +28,7 @@
                     値段 
                     <span class="required-field">必須</span>
                 </label>
-                <input type="number" name="price" class="form-control" id="price" placeholder="値段を入力" value="{{ old('price') }}" required>
+                <input type="text" name="price" class="form-control" id="price" placeholder="値段を入力" value="{{ old('price') }}">
                 @error('price')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -36,7 +36,7 @@
 
             <!-- 画像の選択 -->
             <div class="form-group">
-                <label for="image" class="form-label">
+                <label class="form-label">
                     商品画像 
                     <span class="required-field">必須</span>
                 </label>
@@ -55,27 +55,19 @@
             <!-- 季節 -->
             <div class="form-group">
                 <label for="season" class="form-label">
-                    季節 
+                    季節
                     <span class="required-field">必須</span>
-                <span class="optional-label">複数選択可</span></label>
+                    <span class="optional-label">複数選択可</span>
+                </label>
                 <div class="season-select-container">
                     <div class="register__radio">
-                        <label class="radio__label">
-                            <input name="seasons[]" type="checkbox" class="radio__input" value="1" {{ is_array(old("seasons")) && in_array("1", old("seasons"), true) ? ' checked' : '' }}>
-                            春
-                        </label>
-                        <label class="radio__label">
-                            <input name="seasons[]" type="checkbox" class="radio__input" value="2" {{ is_array(old("seasons")) && in_array("2", old("seasons"), true) ? ' checked' : '' }}>
-                            夏
-                        </label>
-                        <label class="radio__label">
-                            <input name="seasons[]" type="checkbox" class="radio__input" value="3" {{ is_array(old("seasons")) && in_array("3", old("seasons"), true) ? ' checked' : '' }}>
-                            秋
-                        </label>
-                        <label class="radio__label">
-                            <input name="seasons[]" type="checkbox" class="radio__input" value="4" {{ is_array(old("seasons")) && in_array("4", old("seasons"), true) ? ' checked' : '' }}>
-                            冬
-                        </label>
+                        @foreach($seasons as $season)
+                            <label class="radio__label custom-checkbox">
+                                <input name="seasons[]" type="checkbox" class="radio__input" value="{{ $season->id }}" {{ is_array(old('seasons')) && in_array($season->id, old('seasons'), true) ? ' checked' : '' }}>
+                                {{ $season->name }}
+                                <span class="checkmark"></span>
+                            </label>
+                        @endforeach
                     </div>
                     @error('seasons')
                         <span class="text-danger">{{ $message }}</span>
@@ -83,13 +75,17 @@
                 </div>
             </div>
 
+
             <!-- 商品説明 -->
             <div class="form-group">
                 <label for="description" class="form-label">
                     商品説明 
                     <span class="required-field">必須</span>
                 </label>
-                <textarea name="description" class="form-control" id="description" placeholder="商品の説明を入力" value="{{ old('description') }}" required></textarea>
+                <textarea name="description" class="description-textarea" id="description" placeholder="商品の説明を入力" value="{{ old('description') }}"></textarea>
+                @error('description')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
 
             <!-- 戻る・登録ボタン -->
