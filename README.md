@@ -28,9 +28,9 @@ $ php artisan migrate
 $ php artisan db:seed
 ```
 ##使用技術(実行環境)
-フレームワーク：Laravel  8.83.27
-PHP：PHPバージョン: 7.4.9
-データベース：MySQL 8.0.26
+フレームワーク：Laravel  8.83.27<br>
+PHP：PHPバージョン: 7.4.9<br>
+データベース：MySQL 8.0.26<br>
 ##ER図
 ![mogitateER図(mogitate.png)
 ##URL
