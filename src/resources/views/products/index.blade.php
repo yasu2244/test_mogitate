@@ -6,26 +6,36 @@
 
 @section('content')
     <div class="container">
+        <div class="message-space">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+        </div>
+
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>商品一覧</h1>
-            <a href="{{ route('products.create') }}" class="btn btn-primary">+ 商品を追加</a>
+            <h2>商品一覧</h2>
+            <a href="{{ route('products.create') }}" class="btn btn-primary custom-btn">+ 商品を追加</a>
         </div>
         <div class="row">
             <div class="col-md-3">
                 <form action="{{ route('products.search') }}" method="GET">
-                    <div class="form-group">
-                        <input type="text" name="query" class="form-control" placeholder="商品名で検索">
+                    <div class="form-group search-form-group">
+                        <input type="text" name="query" class="form-control search-input" placeholder="商品名で検索" value="{{ request('query') }}">
                     </div>
                     <button type="submit" class="btn btn-warning btn-block">検索</button>
+                    <div class="form-group mt-4 sort-form-group">
+                        <label for="sort">価格順で表示</label>
+                        <select name="sort" id="sort" class="form-control sort-select">
+                            <option value="" disabled selected hidden>価格で並び替え</option>
+                            <option value="desc" {{ request('sort') == 'desc' ? 'selected' : '' }}>高い順に表示</option>
+                            <option value="asc" {{ request('sort') == 'asc' ? 'selected' : '' }}>低い順に表示</option>
+                        </select>
+                    </div>
                 </form>
-                <div class="form-group mt-4">
-                    <label for="sort">価格順で表示</label>
-                    <select name="sort" id="sort" class="form-control">
-                        <option value="asc">昇順</option>
-                        <option value="desc">降順</option>
-                    </select>
-                </div>
             </div>
+
             <div class="col-md-9">
                 <div class="row">
                     @foreach($products as $product)
@@ -48,4 +58,6 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/custom-search.js') }}"></script>
+
 @endsection

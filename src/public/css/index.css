@@ -1,3 +1,48 @@
+.container {
+    max-width: 100%;
+    background-color: #f0f0f0;
+    margin: 0 auto;
+    padding: 50px 20%;
+}
+
+.message-space {
+    height: 60px;
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.custom-btn {
+    background-color: #FFA929;
+    border: none;
+    color: #4B4B4B;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.custom-btn:hover {
+    background-color: #DF9242;
+    color: #4B4B4B;
+    text-decoration: none;
+}
+
+.custom-btn:active {
+    background-color: #DF9425;
+    color: #4B4B4B;
+    text-decoration: none;
+}
+
 .card img {
     width: 100%;
     height: auto;
@@ -75,4 +120,26 @@
 .page-item.active .page-link:first-child,
 .page-item.active .page-link:last-child {
     border-radius: 50%;
+}
+
+/* 検索フォームと並び替えセレクトボックスのスタイル */
+.sort-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border: 1px solid gold;
+    border-radius: 20px;
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.sort-button span {
+    margin-left: 5px;
+    background-color: gold;
+    border-radius: 50%;
+    padding: 0 5px;
+    cursor: pointer;
 }
